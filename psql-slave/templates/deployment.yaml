@@ -40,18 +40,6 @@ spec:
               value: 'repl'
             - name: PG_REP_PASSWORD
               value: 'repl'
-        - name: psql-slave-api
-          image: postgrest/postgrest
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: api
-              containerPort: 3000
-              protocol: TCP
-          env:
-            - name: PGRST_DB_URI
-              value: 'postgres://root:smartteam8!@psql-slave:5432/dev_master'
-            - name: PGRST_DB_SCHEMA
-              value: 'mat'
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
