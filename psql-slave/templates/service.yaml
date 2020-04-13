@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "psql-slave.fullname" . }}
+  labels:
+    {{- include "psql-slave.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.api }}
+      targetPort: api
+      protocol: TCP
+      name: api
+  selector:
+    {{- include "psql-slave.selectorLabels" . | nindent 4 }}
